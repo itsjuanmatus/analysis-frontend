@@ -19,50 +19,76 @@ export default function Sidebar() {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <>
-      <aside className="hidden sticky top-0 bg-blue lg:block justify-center h-screen w-1/8 pt-10 px-12">
-        {/* <a href="/">
-          <img src="/favicon.svg" className="m-auto mb-24" />
-        </a> */}
-        <nav className="text-white text-base font-semibold pt-3 grid justify-items-start">
+      <div className="flex">
+        <aside className="invisible h-screen sticky top-0 bg-blue lg:visible justify-center w-1/8 max-w-1/8 pt-10 px-12 overflow-y-scroll">
           <h2 className="font-bold text-3xl mb-12 text-purple-darkest text-center">
-            analitica
+            SAER
           </h2>
-          <SidebarItem name="Inicio" link="/" icon={<PkNetworkIcon />} />
+
+          <h3 className="font-bold text-gray-600">Consolidados</h3>
           <SidebarItem
-            name="Subir datos"
-            link="/perignossian"
+            name="Matriz de Riesgo"
+            link="/"
+            icon={<PkNetworkIcon />}
+          />
+          <SidebarItem
+            name="Monitoreo de Indicadores"
+            link="/monitoreo-de-indicadores"
+            icon={<PkNetworkIcon />}
+          />
+          <h3 className="font-bold text-gray-600">Riesgos Crediticios</h3>
+          <SidebarItem
+            name="Scoring de originación"
+            link="/scoring"
             icon={<LibraryIcon />}
           />
-         
+          <SidebarItem
+            name="Matriz de transición"
+            link="/matriz-de-transicion"
+            icon={<LibraryIcon />}
+          />
+          <SidebarItem
+            name="Análisis de cosechas de crédito"
+            link="/analisis-de-cosechas-de-credito"
+            icon={<LibraryIcon />}
+          />
+          <SidebarItem
+            name="Análisis de endeudamiento"
+            link="/analisis-de-endeudamiento"
+            icon={<LibraryIcon />}
+          />
+          <SidebarItem
+            name="Análisis de exposicion al riesgo climático"
+            link="/analisis-de-exposición-al-riesgo-climatico"
+            icon={<LibraryIcon />}
+          />
+          <h3 className="font-bold text-gray-600">Riesgos Financieros</h3>
+          <SidebarItem
+            name="Análisis de brechas de liquidez"
+            link="/analisis-de-brechas-de-liquidez"
+            icon={<LibraryIcon />}
+          />
 
+          <SidebarItem
+            name="Análisis de exposición por riesgos de mercado"
+            link="/analisis-de-exposicion-por-riesgos-de-mercado"
+            icon={<SettingsIcon />}
+          />
+          <h3 className="font-bold text-gray-600">Riesgos Operacionales</h3>
+
+          <SidebarItem
+            name="Análisis de criticidad y riesgo de procesos operativos"
+            link="/analisis-de-criticidad-y-riesgo-de-procesos-operativos"
+            icon={<SettingsIcon />}
+          />
           <SidebarItem
             name="Configuración"
             link="/configuracion"
             icon={<SettingsIcon />}
           />
           <SidebarItem name="Ayuda" link="/faq" icon={<FaqIcon />} />
-        </nav>
-
-        {/* {colorTheme === "light" ? (
-          <PkNetworkIcon />
-        ) : (
-          <svg
-            onClick={() => setTheme("dark")}
-            xmlns="http://www.w3.org/2000/svg"
-            className="w-10 upgrade-btn bottom-0  text-white flex items-center justify-center py-32 m-auto"
-            fill="black"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
-            />
-          </svg>
-        )} */}
-      </aside>
+        </aside>
+      </div>
 
       {/** Mobile Nav Bar */}
 

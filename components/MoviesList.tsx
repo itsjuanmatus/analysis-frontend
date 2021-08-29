@@ -39,18 +39,6 @@ function MoviesList() {
     setCurrentIndex(index);
   };
 
-  const findByTitle = () => {
-    movieService
-      .findByTitle(searchTitle)
-      .then((response) => {
-        setMovies(response.data);
-        console.log('data', response.data);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-  };
-
   return (
     <div>
       <ul className="list-group">
