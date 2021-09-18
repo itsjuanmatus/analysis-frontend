@@ -11,7 +11,7 @@ function MoviesList() {
     retrieveMovies();
   }, []);
 
-  const onChangeSearchTitle = (e) => {
+  const onChangeSearchTitle = (e:any) => {
     const searchTitle = e.target.value;
     setSearchTitle(searchTitle);
   };

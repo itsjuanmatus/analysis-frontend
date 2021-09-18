@@ -9,3 +9,16 @@
   font-weight: 400;
   font-display: swap;
 }
+
+
+input[type=file]::file-selector-button {
+  border: none;
+  padding: .4em .6em;
+  border-radius: .2em;
+  background-color: rgba(37, 99, 235, var(--tw-bg-opacity));
+  transition: 1s;
+  color: white;
+  margin-right: 14px;
+  
+}
+
