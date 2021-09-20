@@ -5,10 +5,11 @@ const upload = (file: any, onUploadProgress: any) => {
 
   formData.append("file", file);
 
-  return http.post("/cartera_en_riesgo/upload", formData, {
+  return http.post("/desembolsos/upload", formData, {
     headers: { "Content-Type": "multipart/form-data" },
     onUploadProgress,
   });
 };
+
 
 export default { upload };

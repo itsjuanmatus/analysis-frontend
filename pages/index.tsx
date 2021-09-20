@@ -1,6 +1,5 @@
 import type { NextPage } from "next";
 import Sidebar from "../components/Layout/Sidebar";
-import MoviesList from "../components/MoviesList"
 
 const Home: NextPage = () => {
   return (
@@ -10,7 +9,6 @@ const Home: NextPage = () => {
         <nav></nav>
         <div className="flex flex-col justify-center">
           <h2 className="font-bold text-2xl mb-10">Aquí van los datos</h2>
-          <MoviesList />
         </div>
       </main>
     </div>

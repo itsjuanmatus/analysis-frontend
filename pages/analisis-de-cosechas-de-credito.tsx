@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Sidebar from "../components/Layout/Sidebar";
 import UploadFiles from "../components/UploadFiles";
+import UploadDesembolsos from "../components/UploadDesembolsos";
 
 export default function analisisDeCosechasDeCredito() {
   return (
