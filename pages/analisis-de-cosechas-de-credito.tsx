@@ -14,7 +14,20 @@ export default function analisisDeCosechasDeCredito() {
             <h2 className="font-bold text-2xl mb-10">
               Análisis de cosechas de credito
             </h2>
-            <UploadFiles />{" "}
+            <div className="">
+              <h3 className="font-semibold text-xl">
+                Subir archivos de cartera
+              </h3>
+              <p className="mb-4">Columnas requeridas en esta tabla: id, ...</p>
+              <UploadFiles />
+            </div>
+          </div>
+          <div className="mt-14">
+            <h3 className="font-semibold text-xl">
+              Subir archivos de desembolso
+            </h3>
+            <p className="mb-4">Columnas requeridas en esta tabla: id, ...</p>
+            <UploadDesembolsos />
           </div>
         </div>
       </main>
