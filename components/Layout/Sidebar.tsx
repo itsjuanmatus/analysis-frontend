@@ -29,10 +29,12 @@ const Sidebar = () => {
   return (
     <>
       <aside
-        className={`resize-x sticky z-30 left-0 transition-left shadow-xl sm:shadow-none sm:transition duration-500 sm:left-0 transition flex flex-col top-0 w-64 bg-white h-full border-r`}
+        className={`resize-x sticky z-30 left-0 transition-left shadow-xl sm:shadow-none sm:transition duration-500 sm:left-0 transition flex flex-col top-0 w-64 bg-white min-h-full border-r`}
       >
         <div className="top-0 flex items-center justify-center h-14 border-b">
-          <div className="h-14 flex items-center text-xl font-bold">SAER</div>
+          <Link href="/" >
+            <div className="h-14 flex items-center text-xl font-bold cursor-pointer">SAER</div>
+          </Link>
         </div>
         <div className="h-full overflow-y-auto overflow-x-hidden">
           <div className="flex flex-col py-4 space-y-1">
@@ -82,7 +84,7 @@ const Sidebar = () => {
               {isAuthenticated && (
                 <li>
                   <button
-                     onClick={() => logout({ returnTo: window.location.origin })}
+                    onClick={() => logout({ returnTo: window.location.origin })}
                     className="relative flex flex-row items-center h-11 focus:outline-none nav-link pr-6"
                   >
                     <span className="inline-flex justify-center items-center ml-4">
