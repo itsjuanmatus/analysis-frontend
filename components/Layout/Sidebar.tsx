@@ -21,7 +21,7 @@ const Sidebar = () => {
   const { user } = useAuth0<{ name: string }>();
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <div>Cargando...</div>;
   }
   if (error) {
     return <div>Oops... {error.message}</div>;
