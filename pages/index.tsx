@@ -2,13 +2,8 @@ import type { NextPage } from "next";
 import Sidebar from "../components/Layout/Sidebar";
 import { useAuth0 } from "@auth0/auth0-react";
 function Home() {
-  const {
-    isLoading,
-    isAuthenticated,
-    error,
-    loginWithRedirect,
-    logout,
-  } = useAuth0();
+  const { isLoading, isAuthenticated, error, loginWithRedirect, logout } =
+    useAuth0();
 
   const { user } = useAuth0<{ name: string }>();
 
@@ -40,7 +35,14 @@ function Home() {
       </div>
     );
   } else {
-    return <button onClick={loginWithRedirect} className="">Log in</button>;
+    return (
+      <>
+        {<Sidebar />}
+        <button onClick={loginWithRedirect} className="">
+          Log in
+        </button>
+      </>
+    );
   }
 }
 
