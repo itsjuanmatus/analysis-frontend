@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react'
 import Sidebar from '../../components/Layout/Sidebar'
 import AnalisisContinuoService from '../api/analisis_de_cosechas/analisis_continuo'
 import { usePromiseTracker } from 'react-promise-tracker'
+import { Line } from 'react-chartjs-2'
+import { useRouter } from 'next/router'
 
 import { trackPromise } from 'react-promise-tracker'
 
@@ -33,7 +35,87 @@ const LoadingIndicator: any = (props: any) => {
   )
 }
 
-export default function AnalisisContinuo () {
+export default function AnalisisContinuo ({ tableData }: any) {
+  const router = useRouter()
+
+  // Call this function whenever you want to
+  // refresh props!
+  const refreshData = () => {
+    router.replace(router.asPath)
+  }
+
+  const [...rawData] = tableData
+
+  // This converts this [[{"key": "value"}, {"key": "value"} ]] to [[value], [value]] -
+  const arrayInsideArray = rawData[0].map((objectMapped: any, index: any) =>
+    Object.values(objectMapped)
+  )
+
+  let datasetsLabels = arrayInsideArray.map((e: any) => e[0])
+  datasetsLabels = datasetsLabels.map((e: any) => e.toString())
+
+  // these are the labels or better known as xAxis
+  let labels = rawData[0].map((objectMapped: any, index: any) =>
+    Object.keys(objectMapped)
+  )
+  labels = labels[0]
+
+  // deletes first element of the array, which is the year
+  arrayInsideArray.map((e: any) => e.shift())
+
+  const allValuesArray: any = []
+
+  /** this will push all the values to 
+ and will convert them to integers **/
+  const pushValues = (e: any) => {
+    allValuesArray.push(Number(e))
+  }
+
+  arrayInsideArray.map((subarray: any) => subarray.map(pushValues))
+
+  // this function takes allValuesArray and create new arrays
+  function createGroups (arr: any, numGroups: any) {
+    const perGroup = Math.ceil(arr.length / numGroups)
+    return new Array(numGroups)
+      .fill('')
+      .map((_, i) => arr.slice(i * perGroup, (i + 1) * perGroup))
+  }
+
+  const yAxisArray = createGroups(allValuesArray, arrayInsideArray.length)
+
+  const borderColor = [
+    'rgb(75, 192, 192)',
+    'rgb(255, 99, 132)',
+    'rgb(255, 159, 64)',
+    'rgb(255, 205, 86)',
+    'rgb(75, 192, 192)',
+    'rgb(54, 162, 235)',
+    'rgb(153, 102, 255)',
+    'rgb(201, 203, 207)'
+  ]
+  const backgroundColor = [
+    'rgb(75, 192, 192, 0.2)',
+    'rgb(255, 99, 132, 0.2)',
+    'rgb(255, 159, 64, 0.2)',
+    'rgb(255, 205, 86, 0.2)',
+    'rgb(75, 192, 192, 0.2)',
+    'rgb(54, 162, 235, 0.2)',
+    'rgb(153, 102, 255, 0.2)',
+    'rgb(201, 203, 207, 0.2)'
+  ]
+
+  var datasets = []
+
+  for (let i = 0; i < yAxisArray.length; i++) {
+    datasets[i] = {
+      label: datasetsLabels[i + 1],
+      data: yAxisArray[i + 1],
+      fill: false,
+      backgroundColor: backgroundColor[i + 1],
+      borderColor: borderColor[i + 1]
+    }
+  }
+
   const initialValues = {
     fechaInicial: '2015-06-01',
     fechaFinal: '2018-11-30'
@@ -61,11 +143,35 @@ export default function AnalisisContinuo () {
           })
           console.log(res.data)
           setMessage(`${res.data}`)
+
+          if (res.status < 300) {
+            refreshData()
+          }
         })
         .catch(e => {
           console.log(e)
         })
     )
+  }
+
+  const data = {
+    labels: labels,
+    datasets: datasets
+  }
+
+  const options: any = {
+    scales: {
+      yAxes: [
+        {
+          ticks: {
+            beginAtZero: true,
+            callback: function (value: any, index: any, values: any) {
+              return '%' + value
+            }
+          }
+        }
+      ]
+    }
   }
 
   return (
@@ -75,7 +181,7 @@ export default function AnalisisContinuo () {
         <div className='flex flex-col justify-center  p-10 border border-gray-400 rounded-md w-full'>
           {' '}
           <h2 className='font-bold text-2xl mb-10'>
-            Análisis de cosechas de credito
+            Análisis Continuo
           </h2>
           <div className=''>
             <div className='flex flex-col'>
@@ -115,8 +221,23 @@ export default function AnalisisContinuo () {
             </button>
             <p>{message}</p>
           </div>
+          <div className='max-w-5xl mt-10'>
+            <Line data={data} options={options} />
+          </div>
         </div>
       </main>
     </div>
   )
+}
+
+const endpoint = `https://dataanalysisapp.uc.r.appspot.com/table/cosecha_analisis_continuo`
+
+export async function getServerSideProps () {
+  const res = await fetch(endpoint)
+  const tableData = await res.json()
+  return {
+    props: {
+      tableData
+    }
+  }
 }
