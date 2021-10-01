@@ -44,7 +44,7 @@ export default function AnalisisContinuo ({ tableData }: any) {
     router.replace(router.asPath)
   }
 
-  const [...rawData] = tableData
+  let [...rawData] = tableData
 
   // This converts this [[{"key": "value"}, {"key": "value"} ]] to [[value], [value]] -
   const arrayInsideArray = rawData[0].map((objectMapped: any, index: any) =>
@@ -106,7 +106,7 @@ export default function AnalisisContinuo ({ tableData }: any) {
 
   var datasets = []
 
-  for (let i = 0; i < yAxisArray.length; i++) {
+  for (let i = 0; i < yAxisArray.length - 1; i++) {
     datasets[i] = {
       label: datasetsLabels[i + 1],
       data: yAxisArray[i + 1],
