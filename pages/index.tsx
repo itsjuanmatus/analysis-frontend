@@ -3,7 +3,102 @@ import Sidebar from '../components/Layout/Sidebar'
 import { useAuth0 } from '@auth0/auth0-react'
 import { Line } from 'react-chartjs-2'
 
-function Home () {
+const endpoint = `https://dataanalysisapp.uc.r.appspot.com/table/cosecha_analisis_continuo`
+
+export async function getServerSideProps () {
+  const res = await fetch(endpoint)
+  const tableData = await res.json()
+  return {
+    props: {
+      tableData
+    }
+  }
+}
+
+function Home ({ tableData }: any) {
+  const [...rawData] = tableData
+
+  // This converts this [[{"key": "value"}, {"key": "value"} ]] to [[value], [value]] -
+  const arrayInsideArray = rawData[0].map((objectMapped: any, index: any) =>
+    Object.values(objectMapped)
+  )
+
+  let datasetsLabels = arrayInsideArray.map((e: any) => e[0])
+  datasetsLabels = datasetsLabels.map((e: any) => e.toString())
+
+  // these are the labels or better known as xAxis
+  let labels = rawData[0].map((objectMapped: any, index: any) =>
+    Object.keys(objectMapped)
+  )
+  labels = labels[0]
+
+  // deletes first element of the array, which is the year
+  arrayInsideArray.map((e: any) => e.shift())
+
+  const allValuesArray: any = []
+
+  /** this will push all the values to 
+ and will convert them to integers **/
+  const pushValues = (e: any) => {
+    allValuesArray.push(Number(e))
+  }
+
+  arrayInsideArray.map((subarray: any) => subarray.map(pushValues))
+
+  // this function takes allValuesArray and create new arrays
+  function createGroups (arr: any, numGroups: any) {
+    const perGroup = Math.ceil(arr.length / numGroups)
+    return new Array(numGroups)
+      .fill('')
+      .map((_, i) => arr.slice(i * perGroup, (i + 1) * perGroup))
+  }
+
+  const yAxisArray = createGroups(allValuesArray, arrayInsideArray.length)
+
+  function getRandomRgb (d: Number) {
+    var num = Math.round(0xffffff * Math.random())
+    var r = num >> 16
+    var g = (num >> 8) & 255
+    var b = num & 255
+    return 'rgb(' + r + ', ' + g + ', ' + b + ', ' + d + ')'
+  }
+
+  const borderColor = [
+    'rgb(75, 192, 192)',
+    'rgb(255, 99, 132)',
+    'rgb(255, 159, 64)',
+    'rgb(255, 205, 86)',
+    'rgb(75, 192, 192)',
+    'rgb(54, 162, 235)',
+    'rgb(153, 102, 255)',
+    'rgb(201, 203, 207)'
+  ]
+  const backgroundColor = [
+    'rgb(75, 192, 192, 0.2)',
+    'rgb(255, 99, 132, 0.2)',
+    'rgb(255, 159, 64, 0.2)',
+    'rgb(255, 205, 86, 0.2)',
+    'rgb(75, 192, 192, 0.2)',
+    'rgb(54, 162, 235, 0.2)',
+    'rgb(153, 102, 255, 0.2)',
+    'rgb(201, 203, 207, 0.2)'
+  ]
+
+  var datasets = []
+
+  for (let i = 0; i < yAxisArray.length; i++) {
+    /* const Color = getRandomRgb(0.2)
+    const strongColor = `${Color.slice(0, -6)})` */
+
+    datasets[i] = {
+      label: datasetsLabels[i + 1],
+      data: yAxisArray[i + 1],
+      fill: false,
+      backgroundColor: backgroundColor[i + 1],
+      borderColor: borderColor[i + 1]
+    }
+  }
+
   const {
     isLoading,
     isAuthenticated,
@@ -21,202 +116,8 @@ function Home () {
     return <div>Oops... {error.message}</div>
   }
   const data = {
-    labels: [
-      '1',
-      '2',
-      '3',
-      '4',
-      '5',
-      '6',
-      '7',
-      '8',
-      '9',
-      '10',
-      '11',
-      '12',
-      '13',
-      '14',
-      '15',
-      '16',
-      '17',
-      '18',
-      '19',
-      '20',
-      '21',
-      '22',
-      '23',
-      '24',
-      '25',
-      '26',
-      '27',
-      '28',
-      '29',
-      '30',
-      '31',
-      '32',
-      '33',
-      '34',
-      '35',
-      '36',
-      '37',
-      '38',
-      '39',
-      '40',
-      '41',
-      '42'
-    ],
-    datasets: [
-      {
-        label: '2015 jun',
-        data: [
-          80,
-          62,
-          56,
-          45,
-          41,
-          57,
-          28,
-          26,
-          86,
-          76,
-          16,
-          37,
-          84,
-          96,
-          90,
-          87,
-          92,
-          76,
-          51,
-          83,
-          25,
-          89,
-          29,
-          76,
-          59,
-          97,
-          37,
-          42,
-          89,
-          33,
-          23,
-          74,
-          2,
-          35,
-          90,
-          80,
-          95,
-          96,
-          39,
-          44,
-          27,
-          56
-        ],
-        fill: false,
-        backgroundColor: 'rgb(255, 99, 132)',
-        borderColor: 'rgba(255, 99, 132, 0.2)'
-      },
-      {
-        label: '2016 jun',
-        data: [
-          21,
-          24,
-          17,
-          13,
-          66,
-          71,
-          97,
-          83,
-          42,
-          87,
-          33,
-          42,
-          69,
-          84,
-          92,
-          2,
-          47,
-          24,
-          53,
-          42,
-          95,
-          89,
-          6,
-          57,
-          42,
-          86,
-          2,
-          20,
-          85,
-          63,
-          5,
-          80,
-          76,
-          12,
-          87,
-          60,
-          3,
-          16,
-          69,
-          19,
-          99,
-          16
-        ],
-        fill: false,
-        backgroundColor: 'rgb(54, 162, 235)',
-        borderColor: 'rgba(54, 162, 235, 0.2)'
-      },
-      {
-        label: '2017 jun',
-        data: [
-          50,
-          11,
-          9,
-          70,
-          30,
-          31,
-          45,
-          50,
-          80,
-          32,
-          41,
-          89,
-          77,
-          11,
-          83,
-          15,
-          98,
-          35,
-          50,
-          12,
-          55,
-          40,
-          75,
-          80,
-          51,
-          3,
-          66,
-          39,
-          70,
-          71,
-          69,
-          14,
-          80,
-          62,
-          86,
-          40,
-          96,
-          0,
-          17,
-          38,
-          42,
-          11
-        ],
-        fill: false,
-        backgroundColor: 'rgb(34, 207, 207)',
-        borderColor: 'rgb(34, 207, 207, 0.2)'
-      }
-    ]
+    labels: labels,
+    datasets: datasets
   }
 
   const options: any = {
@@ -231,7 +132,6 @@ function Home () {
     }
   }
 
-  
   if (isAuthenticated) {
     return (
       <div className='flex min-h-screen'>
