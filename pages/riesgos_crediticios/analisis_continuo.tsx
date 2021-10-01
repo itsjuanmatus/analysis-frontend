@@ -1,16 +1,11 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import Sidebar from '../../components/Layout/Sidebar'
-import UploadFiles from '../../components/UploadFiles'
-import UploadDesembolsos from '../../components/UploadDesembolsos'
-import AnalisisDeCosechas from '../api/analisis_de_cosechas/analisis_de_cosechas'
+import AnalisisContinuoService from '../api/analisis_de_cosechas/analisis_continuo'
 import { usePromiseTracker } from 'react-promise-tracker'
 
 import { trackPromise } from 'react-promise-tracker'
 
 const LoadingIndicator: any = (props: any) => {
-  
-
-
   const { promiseInProgress } = usePromiseTracker()
   return (
     promiseInProgress && (
@@ -38,34 +33,7 @@ const LoadingIndicator: any = (props: any) => {
   )
 }
 
-export default function AnalisisDeCosechasDeCredito () {
-
-
-  let x = [
-    {
-      '1': '2',
-      '3': '4'
-    },
-    {
-      '5': '6'
-    }
-  ]
-
-  let ArrayOfKeysArray = x.map((objectMapped, index) =>
-    Object.keys(objectMapped)
-  )
-
-  let emptyArray: any = []
-  const double = (e: any) => {
-    emptyArray.push(Number(e))
-  }
-  
-  let doubledArray = ArrayOfKeysArray.map(subarray => {
-    subarray.map(double)
-  })
-
-
-
+export default function AnalisisContinuo () {
   const initialValues = {
     fechaInicial: '2015-06-01',
     fechaFinal: '2018-11-30'
@@ -84,16 +52,15 @@ export default function AnalisisDeCosechasDeCredito () {
       fechaInicial: value.fechaInicial,
       fechaFinal: value.fechaFinal
     }
-
     trackPromise(
-      AnalisisDeCosechas.create(data)
+      AnalisisContinuoService.create(data)
         .then(res => {
           setValue({
             fechaInicial: res.data.fechaInicial,
             fechaFinal: res.data.fechaFinal
           })
-          console.log(res.data[0]['Proceso terminado con exito'])
-          setMessage(res.data[0]['Proceso terminado con exito'])
+          console.log(res.data)
+          setMessage(`${res.data}`)
         })
         .catch(e => {
           console.log(e)
@@ -110,23 +77,7 @@ export default function AnalisisDeCosechasDeCredito () {
           <h2 className='font-bold text-2xl mb-10'>
             Análisis de cosechas de credito
           </h2>
-          <div className='grid grid-cols-2'>
-            <div className=''>
-              <h3 className='font-semibold text-xl'>
-                Subir archivos de cartera
-              </h3>
-              <p className='mb-4'>Columnas requeridas en esta tabla: id, ...</p>
-              <UploadFiles />
-            </div>
-            <div className=''>
-              <h3 className='font-semibold text-xl'>
-                Subir archivos de desembolso
-              </h3>
-              <p className='mb-4'>Columnas requeridas en esta tabla: id, ...</p>
-              <UploadDesembolsos />
-            </div>
-          </div>
-          <div className='mt-20 '>
+          <div className=''>
             <div className='flex flex-col'>
               <label htmlFor='fechaInicial' className='text-xl font-bold'>
                 Fecha Inicial
