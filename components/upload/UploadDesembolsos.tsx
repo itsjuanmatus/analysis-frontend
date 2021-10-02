@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import FileUploadService from "../pages/api/FileUploadService";
+import UploadDesembolsosService from "../../pages/api/UploadDesembolsosService";
 
 const UploadFiles = () => {
   const [selectedFiles, setSelectedFiles] = useState<any>(undefined);
@@ -18,7 +18,7 @@ const UploadFiles = () => {
     setProgress(0);
     setCurrentFile(currentFile);
 
-    FileUploadService.upload(currentFile, (event: any) => {
+    UploadDesembolsosService.upload(currentFile, (event: any) => {
       setProgress(Math.round((100 * event.loaded) / event.total));
     })
       .then((response: any) => {
@@ -26,14 +26,16 @@ const UploadFiles = () => {
       })
       .catch(() => {
         setProgress(0);
-        setMessage("Could not upload the file!");
+        setMessage(
+          "No se pudo subir el archivo! Chequea las razones por las cuales este fallando acá"
+        );
         setCurrentFile(undefined);
       });
+
     setSelectedFiles(undefined);
   };
 
   return (
-    <>
     <body>
       <div>
         {currentFile && (
@@ -65,8 +67,6 @@ const UploadFiles = () => {
         </div>
       </div>
     </body>
-    </>
-
   );
 };
 

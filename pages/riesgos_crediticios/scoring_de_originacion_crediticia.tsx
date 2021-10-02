@@ -1,7 +1,7 @@
 import React from "react";
 import Sidebar from "../../components/Layout/Sidebar";
 
-export default function scoring_de_originacion_crediticia() {
+export default function ScoringDeOriginacionCrediticia() {
   return (
     <div className="flex min-h-screen m-auto w-full">
       {<Sidebar />}

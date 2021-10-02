@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react'
-import Sidebar from '../../components/Layout/Sidebar'
-import UploadFiles from '../../components/UploadFiles'
-import UploadDesembolsos from '../../components/UploadDesembolsos'
-import AnalisisDeCosechas from '../api/analisis_de_cosechas/analisis_de_cosechas'
+import Sidebar from '../../../components/Layout/Sidebar'
+import UploadFiles from '../../../components/upload/UploadCartera'
+import UploadDesembolsos from '../../../components/upload/UploadDesembolsos'
+import AnalisisDeCosechas from '../../api/analisis_de_cosechas/analisis_de_cosechas'
 import { usePromiseTracker } from 'react-promise-tracker'
-
+import Dropdown from '../../../components/UI/Dropdown'
+import { withAuthenticationRequired } from '@auth0/auth0-react'
 import { trackPromise } from 'react-promise-tracker'
+import Loading from '../../../components/auth/Loading'
+import UploadCartera from '../../../components/upload/UploadCartera'
 
 const LoadingIndicator: any = (props: any) => {
-  
-
-
   const { promiseInProgress } = usePromiseTracker()
   return (
     promiseInProgress && (
@@ -38,34 +38,7 @@ const LoadingIndicator: any = (props: any) => {
   )
 }
 
-export default function AnalisisDeCosechasDeCredito () {
-
-
-  let x = [
-    {
-      '1': '2',
-      '3': '4'
-    },
-    {
-      '5': '6'
-    }
-  ]
-
-  let ArrayOfKeysArray = x.map((objectMapped, index) =>
-    Object.keys(objectMapped)
-  )
-
-  let emptyArray: any = []
-  const double = (e: any) => {
-    emptyArray.push(Number(e))
-  }
-  
-  let doubledArray = ArrayOfKeysArray.map(subarray => {
-    subarray.map(double)
-  })
-
-
-
+function AnalisisDeCosechasDeCredito () {
   const initialValues = {
     fechaInicial: '2015-06-01',
     fechaFinal: '2018-11-30'
@@ -101,22 +74,36 @@ export default function AnalisisDeCosechasDeCredito () {
     )
   }
 
+  const dropdownData = [
+    {
+      name: 'Analisis Continuo',
+      link: '/riesgos_crediticios/analisis_continuo'
+    },
+    {
+      name: 'Analisis x',
+      link: '/riesgos_crediticios/x'
+    }
+  ]
+
   return (
     <div className='flex min-h-screen m-auto w-full'>
       {<Sidebar />}
       <main className='m-10 w-full'>
-        <div className='flex flex-col justify-center  p-10 border border-gray-400 rounded-md w-full'>
+        <div className='flex flex-col justify-center  p-10 border border-t border-gray-200 rounded-md w-full'>
           {' '}
-          <h2 className='font-bold text-2xl mb-10'>
+          <h2 className='font-bold text-2xl mb-5'>
             Análisis de cosechas de credito
           </h2>
+          <div className='max-w-sm mb-10'>
+            <Dropdown dropdownData={dropdownData} />
+          </div>
           <div className='grid grid-cols-2'>
             <div className=''>
               <h3 className='font-semibold text-xl'>
                 Subir archivos de cartera
               </h3>
               <p className='mb-4'>Columnas requeridas en esta tabla: id, ...</p>
-              <UploadFiles />
+              <UploadCartera />
             </div>
             <div className=''>
               <h3 className='font-semibold text-xl'>
@@ -126,9 +113,9 @@ export default function AnalisisDeCosechasDeCredito () {
               <UploadDesembolsos />
             </div>
           </div>
-          <div className='mt-20 '>
+          <div className='mt-20 flex flex-inline items-center space-x-5'>
             <div className='flex flex-col'>
-              <label htmlFor='fechaInicial' className='text-xl font-bold'>
+              <label htmlFor='fechaInicial' className='text-md font-semibold'>
                 Fecha Inicial
               </label>
               <input
@@ -141,8 +128,8 @@ export default function AnalisisDeCosechasDeCredito () {
                 name='fechaInicial'
               />
             </div>{' '}
-            <div className='flex flex-col mt-2'>
-              <label htmlFor='fechaFinal' className='text-xl font-bold '>
+            <div className='flex flex-col'>
+              <label htmlFor='fechaFinal' className='text-md font-semibold '>
                 Fecha Final
               </label>
               <input
@@ -155,17 +142,21 @@ export default function AnalisisDeCosechasDeCredito () {
                 name='fechaFinal'
               />
             </div>
-            <button
-              onClick={saveValue}
-              className='mt-2 inline-flex items-center px-4 py-2 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-blue-600 hover:bg-rose-500 focus:border-rose-700 active:bg-rose-700 transition ease-in-out duration-150'
-            >
-              <LoadingIndicator />
-              Enviar
-            </button>
-            <p>{message}</p>
           </div>
+          <button
+            onClick={saveValue}
+            className='mt-2 inline-flex items-center max-w-min px-4 py-2 border border-transparent text-base leading-6 font-medium rounded-md text-white bg-blue-600'
+          >
+            <LoadingIndicator />
+            Enviar
+          </button>
+          <p>{message}</p>
         </div>
       </main>
     </div>
   )
 }
+
+export default withAuthenticationRequired(AnalisisDeCosechasDeCredito, {
+  onRedirecting: () => <Loading />
+})

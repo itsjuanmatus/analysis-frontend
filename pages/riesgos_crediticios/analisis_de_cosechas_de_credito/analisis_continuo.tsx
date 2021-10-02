@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react'
-import Sidebar from '../../components/Layout/Sidebar'
-import AnalisisContinuoService from '../api/analisis_de_cosechas/analisis_continuo'
+import Sidebar from '../../../components/Layout/Sidebar'
+import AnalisisContinuoService from '../../api/analisis_de_cosechas/analisis_continuo'
 import { usePromiseTracker } from 'react-promise-tracker'
 import { Line } from 'react-chartjs-2'
 import { useRouter } from 'next/router'
+import { withAuthenticationRequired } from '@auth0/auth0-react'
 
 import { trackPromise } from 'react-promise-tracker'
+import Loading from '../../../components/auth/Loading'
 
 const LoadingIndicator: any = (props: any) => {
   const { promiseInProgress } = usePromiseTracker()
@@ -35,7 +37,7 @@ const LoadingIndicator: any = (props: any) => {
   )
 }
 
-export default function AnalisisContinuo ({ tableData }: any) {
+function AnalisisContinuo ({ tableData }: any) {
   const router = useRouter()
 
   // Call this function whenever you want to
@@ -178,11 +180,9 @@ export default function AnalisisContinuo ({ tableData }: any) {
     <div className='flex min-h-screen m-auto w-full'>
       {<Sidebar />}
       <main className='m-10 w-full'>
-        <div className='flex flex-col justify-center  p-10 border border-gray-400 rounded-md w-full'>
+        <div className='flex flex-col justify-center  p-10 border border-t border-gray-200 rounded-md w-full'>
           {' '}
-          <h2 className='font-bold text-2xl mb-10'>
-            Análisis Continuo
-          </h2>
+          <h2 className='font-bold text-2xl mb-10'>Análisis Continuo</h2>
           <div className=''>
             <div className='flex flex-col'>
               <label htmlFor='fechaInicial' className='text-xl font-bold'>
@@ -229,6 +229,10 @@ export default function AnalisisContinuo ({ tableData }: any) {
     </div>
   )
 }
+
+export default withAuthenticationRequired(AnalisisContinuo, {
+  onRedirecting: () => <Loading />
+})
 
 const endpoint = `https://dataanalysisapp.uc.r.appspot.com/table/cosecha_analisis_continuo`
 
