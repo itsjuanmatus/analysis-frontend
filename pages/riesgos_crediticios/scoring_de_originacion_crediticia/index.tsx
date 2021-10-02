@@ -38,7 +38,7 @@ const LoadingIndicator: any = (props: any) => {
   )
 }
 
-function AnalisisDeCosechasDeCredito () {
+function ScoringDeOriginacionCrediticia () {
   const initialValues = {
     fechaInicial: '2015-06-01',
     fechaFinal: '2018-11-30'
@@ -77,7 +77,8 @@ function AnalisisDeCosechasDeCredito () {
   const dropdownData = [
     {
       name: 'Analisis Continuo',
-      link: '/riesgos_crediticios/analisis_continuo'
+      link:
+        '/riesgos_crediticios/analisis_de_cosechas_de_credito/analisis_continuo'
     },
     {
       name: 'Analisis x',
@@ -92,7 +93,7 @@ function AnalisisDeCosechasDeCredito () {
         <div className='flex flex-col justify-center px-10 border border-t border-gray-200 rounded-md w-full max-w-5xl'>
           {' '}
           <h2 className='font-bold text-2xl mb-5'>
-            Análisis de cosechas de credito
+            Scoring de originación crediticia
           </h2>
           <div className='max-w-sm mb-10'>
             <Dropdown dropdownData={dropdownData} />
@@ -138,7 +139,7 @@ function AnalisisDeCosechasDeCredito () {
             </div>
             <div className='flex space-x-10'>
               <div className='max-w-xs'>
-                <h3 className='font-semibold text-lg'>
+                <h3 className='font-semibold text-xl'>
                   Generar datos de Analisis
                 </h3>
                 <p className='text-gray-500'>
@@ -200,6 +201,6 @@ function AnalisisDeCosechasDeCredito () {
   )
 }
 
-export default withAuthenticationRequired(AnalisisDeCosechasDeCredito, {
+export default withAuthenticationRequired(ScoringDeOriginacionCrediticia, {
   onRedirecting: () => <Loading />
 })
