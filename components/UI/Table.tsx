@@ -10,7 +10,8 @@ import {
 } from 'react-table'
 
 import { Button, PageButton } from '../shared/Button'
-import { classNames } from '../shared/utils'
+import { classNames } from '../shared/Utils'
+import GaugeChart from 'react-gauge-chart'
 
 import {
   ChevronDoubleLeftIcon,
@@ -34,7 +35,7 @@ function GlobalFilter ({
     <label className='flex gap-x-2 items-baseline'>
       <span className='text-gray-700'>Buscar: </span>
       <input
-        type='text'
+        type="search" 
         className='mt-1 block w-full max-w-md mb-5 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'
         value={value || ''}
         onChange={e => {
@@ -54,8 +55,8 @@ export function StatusPill ({ value }: any) {
     <span
       className={classNames(
         'px-3 py-1 uppercase leading-wide font-bold text-xs rounded-full shadow-sm',
-        score >= 9 ? 'bg-green-100 text-green-700' : null,
-        score < 8 ? 'bg-yellow-100 text-yellow-700' : null,
+        score >= 8 ? 'bg-green-100 text-green-700' : null,
+        score <= 7 ? 'bg-yellow-100 text-yellow-700' : null,
         score < 5 ? 'bg-red-100 text-red-700' : null
       )}
     >
@@ -79,7 +80,7 @@ const IndeterminateCheckbox = React.forwardRef(
           type='checkbox'
           ref={resolvedRef}
           {...rest}
-          className='appearance-none checked:bg-blue-600 checked:border-transparent'
+          className='rounded-md focus:ring-transparent'
         />
       </>
     )
@@ -92,12 +93,9 @@ function Table ({ columns, data }: any) {
     getTableBodyProps,
     headerGroups,
     prepareRow,
-
-    //new
-    page, // Instead of using 'rows', we'll use page,
-    // which has only the rows for the active page
-
-    // The rest of these things are super handy, too ;)
+    selectedFlatRows,
+    state: { selectedRowIds },
+    page,
     canPreviousPage,
     canNextPage,
     pageOptions,
@@ -113,7 +111,16 @@ function Table ({ columns, data }: any) {
   }: any = useTable(
     {
       columns,
-      data
+      data,
+      stateReducer: (newState: any, action: any) => {
+        if (action.type === 'toggleRowSelected') {
+          newState.selectedRowIds = {
+            [action.id]: true
+          }
+        }
+
+        return newState
+      }
     },
     useFilters,
     useGlobalFilter,
@@ -121,7 +128,7 @@ function Table ({ columns, data }: any) {
     usePagination,
     useRowSelect,
 
-    /* hooks => {
+    hooks => {
       hooks.visibleColumns.push(columns => [
         // Let's make a column for selection
         {
@@ -143,18 +150,32 @@ function Table ({ columns, data }: any) {
         },
         ...columns
       ])
-    } */
+    }
   )
 
   // Render the UI for your table
   return (
     <>
-      <GlobalFilter
-        preGlobalFilteredRows={preGlobalFilteredRows}
-        globalFilter={state.globalFilter}
-        setGlobalFilter={setGlobalFilter}
-      />
-
+      <div className='flex w-full justify-between'>
+        <GlobalFilter
+          preGlobalFilteredRows={preGlobalFilteredRows}
+          globalFilter={state.globalFilter}
+          setGlobalFilter={setGlobalFilter}
+        />
+        <div className='w-32'>
+          <GaugeChart
+            id='gauge-chart3'
+            nrOfLevels={10}
+            colors={['#DC2626', '#F97316', '#A3E635']}
+            arcWidth={0.3}
+            percent={selectedFlatRows.map((d: any) => d.original.SCORE / 10)}
+            textColor='#00000'
+            formatTextValue={value => value}
+            hideText={true}
+            animateDuration={2000}
+          />
+        </div>
+      </div>
       <div className='mt-2 flex flex-col'>
         <div className='-my-2 overflow-x-auto -mx-4 sm:-mx-6 lg:-mx-8'>
           <div className='py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8'>
@@ -215,7 +236,18 @@ function Table ({ columns, data }: any) {
                 </tbody>
               </table>
               {/* <pre>
-                <code>{JSON.stringify(state, null, 2)}</code>
+                <code>
+                  {JSON.stringify(
+                    {
+                      selectedRowIds: selectedRowIds,
+                      'selectedFlatRows[].original': selectedFlatRows.map(
+                        (d: any) => d.original.SCORE
+                      )
+                    },
+                    null,
+                    2
+                  )}
+                </code>
               </pre> */}
             </div>
           </div>

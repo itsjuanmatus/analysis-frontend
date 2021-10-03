@@ -24,6 +24,16 @@ function TablaScoring ({ tableData }: any) {
     {
       name: 'Subir Catálogos',
       link: '/riesgos_crediticios/scoring_de_originacion_crediticia/'
+    },
+    {
+      name: 'Tabla Scoring',
+      link:
+        '/riesgos_crediticios/scoring_de_originacion_crediticia/tabla_scoring'
+    },
+    ,
+    {
+      name: 'Analisis Camel',
+      link: '#'
     }
   ]
 
@@ -104,8 +114,7 @@ function TablaScoring ({ tableData }: any) {
                 Generar datos de Analisis
               </h3>
               <p className='text-gray-500'>
-                Asegurate de haber subido los archivos de cartera y desembolso
-                correctamente
+                Asegurate de haber subido los catalogos correctamente
               </p>
               <button
                 onClick={saveValue}
@@ -116,7 +125,7 @@ function TablaScoring ({ tableData }: any) {
               </button>
             </div>
           </div>
-          <div className='w-full mt-10'>
+          <div className='w-full mt-10 mb-20'>
             <Table columns={columns} data={fields} />
           </div>
         </div>

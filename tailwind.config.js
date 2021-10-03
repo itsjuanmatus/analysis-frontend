@@ -26,12 +26,27 @@ module.exports = {
         },
         yellow: {
           DEFAULT: '#ECBB01'
+        },
+        traffic_light: {
+          1: '',
+          2: '',
+          3: '',
+          4: '',
+          5: '',
+          6: '',
+          7: '',
+          8: '',
+          9: '',
+          10: ''
         }
       }
     }
   },
   variants: {
-    extend: {}
+    extend: {
+      backgroundColor: ['checked'],
+      borderColor: ['checked']
+    }
   },
   plugins: [require('@tailwindcss/forms')]
 }

@@ -79,9 +79,19 @@ function ScoringDeOriginacionCrediticia ({ tableData }: any) {
 
   const dropdownData = [
     {
+      name: 'Subir Catálogos',
+      link: '#'
+    },
+    {
       name: 'Tabla Scoring',
       link:
         '/riesgos_crediticios/scoring_de_originacion_crediticia/tabla_scoring'
+    },
+    ,
+    {
+      name: 'Analisis Camel',
+      link:
+        '/riesgos_crediticios/scoring_de_originacion_crediticia/analisis_camel'
     }
   ]
 

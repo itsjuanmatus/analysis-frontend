@@ -1,5 +1,5 @@
 import React from 'react'
-import { classNames } from './utils'
+import { classNames } from './Utils'
 
 export function Button ({ children, className, ...rest }: any) {
   return (
