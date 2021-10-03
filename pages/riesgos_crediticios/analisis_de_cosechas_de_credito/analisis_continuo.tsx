@@ -1,12 +1,11 @@
 import { useState, useEffect } from 'react'
 import Sidebar from '../../../components/Layout/Sidebar'
 import AnalisisContinuoService from '../../api/analisis_de_cosechas/analisis_continuo'
-import { usePromiseTracker } from 'react-promise-tracker'
 import { Line } from 'react-chartjs-2'
 import { useRouter } from 'next/router'
 import { withAuthenticationRequired } from '@auth0/auth0-react'
 
-import { trackPromise } from 'react-promise-tracker'
+import { trackPromise, usePromiseTracker } from 'react-promise-tracker'
 import Loading from '../../../components/auth/Loading'
 
 const LoadingIndicator: any = (props: any) => {

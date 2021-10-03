@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import UploadDesembolsosService from '../../pages/api/analisis_de_cosechas/upload/UploadDesembolsosService'
+import FileUploadService from '../../../../pages/api/riesgos_crediticios/scoring_de_originacion_crediticia/upload/uploadCatFormaRecuperacion'
 
 const UploadFiles = () => {
   const [selectedFiles, setSelectedFiles] = useState<any>(undefined)
@@ -12,7 +12,7 @@ const UploadFiles = () => {
     setProgress(0)
     setCurrentFile(currentFile)
 
-    UploadDesembolsosService.upload(currentFile, (event: any) => {
+    FileUploadService.upload(currentFile, (event: any) => {
       setProgress(Math.round((100 * event.loaded) / event.total))
     })
       .then((response: any) => {
@@ -46,7 +46,7 @@ const UploadFiles = () => {
                 ></div>
               </div>
             )}
-            <label className='inline-flex justify-center w-full items-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 hover:ring-indigo-500'>
+            <label className='inline-flex justify-center items-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 hover:ring-indigo-500'>
               <svg
                 xmlns='http://www.w3.org/2000/svg'
                 className='h-6 w-6 mr-5'

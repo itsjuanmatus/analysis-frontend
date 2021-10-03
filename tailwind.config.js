@@ -1,35 +1,37 @@
 module.exports = {
-  mode: "jit",
-  purge: ["./pages/**/*.{js,ts,jsx,tsx}", "./components/**/*.{js,ts,jsx,tsx}"],
+  mode: 'jit',
+  purge: ['./pages/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {
       colors: {
-        transparent: "transparent",
-        current: "currentColor",
+        transparent: 'transparent',
+        current: 'currentColor',
         blue: {
-          darkest: "#0A2558",
-          DEFAULT: "#F5F7FA",
-          light: "#3A72E4"
+          darkest: '#0A2558',
+          DEFAULT: '#F5F7FA',
+          light: '#3A72E4'
         },
         purple: {
-          light: "#8645FF",
-          DEFAULT: "#8645FF",
-          dark: "#181059",
-          darkest: "#0E0A33",
+          light: '#8645FF',
+          DEFAULT: '#8645FF',
+          dark: '#181059',
+          darkest: '#0E0A33'
         },
-        white: "#FFFFFF",
+        white: '#FFFFFF',
         gray: {
-          DEFAULT: "#B2AEDD",
-          blueish: "#0A2558",
-          background: "#F6F8FA"
+          DEFAULT: '#B2AEDD',
+          blueish: '#0A2558',
+          background: '#F6F8FA'
         },
-        yellow: "#ECBB01",
-      },
-    },
+        yellow: {
+          DEFAULT: '#ECBB01'
+        }
+      }
+    }
   },
   variants: {
-    extend: {},
+    extend: {}
   },
-  plugins: [],
-};
+  plugins: [require('@tailwindcss/forms')]
+}

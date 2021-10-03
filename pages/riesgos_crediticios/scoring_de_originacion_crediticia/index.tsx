@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from 'react'
 import Sidebar from '../../../components/Layout/Sidebar'
-import UploadFiles from '../../../components/upload/UploadCartera'
-import UploadDesembolsos from '../../../components/upload/UploadDesembolsos'
+import UploadDesembolsos from '../../../components/upload/riesgos_crediticios/analisis_de_cosechas/UploadDesembolsos'
 import AnalisisDeCosechas from '../../api/analisis_de_cosechas/analisis_de_cosechas'
 import { usePromiseTracker } from 'react-promise-tracker'
 import Dropdown from '../../../components/UI/Dropdown'
 import { withAuthenticationRequired } from '@auth0/auth0-react'
 import { trackPromise } from 'react-promise-tracker'
 import Loading from '../../../components/auth/Loading'
-import UploadCartera from '../../../components/upload/UploadCartera'
+import UploadCatEstadoOperacion from '../../../components/upload/riesgos_crediticios/scoring_de_originacion_crediticia/UploadCatEstadoOperacion'
+import UploadCatFormaRecuperacion from '../../../components/upload/riesgos_crediticios/scoring_de_originacion_crediticia/UploadCatFormaRecuperacion'
+import UploadCatHistorialMora from '../../../components/upload/riesgos_crediticios/scoring_de_originacion_crediticia/UploadCatHistorialMora'
+import UploadListaCreditos from '../../../components/upload/riesgos_crediticios/scoring_de_originacion_crediticia/UploadListaCreditos'
+import UploadResultadoEvaluacion from '../../../components/upload/riesgos_crediticios/scoring_de_originacion_crediticia/UploadResultadoEvaluacion'
 
 const LoadingIndicator: any = (props: any) => {
   const { promiseInProgress } = usePromiseTracker()
@@ -38,7 +41,7 @@ const LoadingIndicator: any = (props: any) => {
   )
 }
 
-function ScoringDeOriginacionCrediticia () {
+function ScoringDeOriginacionCrediticia ({ tableData }: any) {
   const initialValues = {
     fechaInicial: '2015-06-01',
     fechaFinal: '2018-11-30'
@@ -76,13 +79,9 @@ function ScoringDeOriginacionCrediticia () {
 
   const dropdownData = [
     {
-      name: 'Analisis Continuo',
+      name: 'Tabla Scoring',
       link:
-        '/riesgos_crediticios/analisis_de_cosechas_de_credito/analisis_continuo'
-    },
-    {
-      name: 'Analisis x',
-      link: '/riesgos_crediticios/x'
+        '/riesgos_crediticios/scoring_de_originacion_crediticia/tabla_scoring'
     }
   ]
 
@@ -90,10 +89,10 @@ function ScoringDeOriginacionCrediticia () {
     <div className='flex min-h-screen m-auto w-full'>
       {<Sidebar />}
       <main className='m-10 w-full flex justify-center '>
-        <div className='flex flex-col justify-center px-10 border border-t border-gray-200 rounded-md w-full max-w-5xl'>
+        <div className='grid items-start justify-start p-10 border border-t border-gray-200 rounded-md w-full max-w-5xl'>
           {' '}
           <h2 className='font-bold text-2xl mb-5'>
-            Scoring de originación crediticia
+            Subir archivos - Scoring de originación crediticia
           </h2>
           <div className='max-w-sm mb-10'>
             <Dropdown dropdownData={dropdownData} />
@@ -103,7 +102,7 @@ function ScoringDeOriginacionCrediticia () {
             <div className='flex space-x-10'>
               <div className='max-w-xs'>
                 <h3 className='font-semibold text-lg'>
-                  Subir archivos de cartera
+                  Subir catalogo estado operacion
                 </h3>
                 <p className='text-gray-500 '>
                   Asegurate de haber leido correctamente las instrucciones sobre
@@ -112,17 +111,17 @@ function ScoringDeOriginacionCrediticia () {
                     href='#'
                     className='text-indigo-500 hover:underline hover:cursor-pointer'
                   >
-                    cartera
+                    Catalogo Estado Operacion
                   </a>
                 </p>
               </div>
-              <UploadCartera />
+              <UploadCatEstadoOperacion />
             </div>
             {/** Subir Archivos de Desembolsos Element */}
             <div className='flex space-x-10'>
               <div className='max-w-xs'>
                 <h3 className='font-semibold text-lg'>
-                  Subir archivos de desembolso
+                  Subir Catalogo Forma Recuperacion
                 </h3>
                 <p className='text-gray-500 '>
                   Asegurate de haber leido correctamente las instrucciones sobre
@@ -135,63 +134,63 @@ function ScoringDeOriginacionCrediticia () {
                   </a>
                 </p>
               </div>
-              <UploadDesembolsos />
+              <UploadCatFormaRecuperacion />
             </div>
+            {/** Subir Archivos de Desembolsos Element */}
             <div className='flex space-x-10'>
               <div className='max-w-xs'>
-                <h3 className='font-semibold text-xl'>
-                  Generar datos de Analisis
+                <h3 className='font-semibold text-lg'>
+                  Subir Catalogo Historial Mora
                 </h3>
-                <p className='text-gray-500'>
-                  Asegurate de haber subido los archivos de cartera y desembolso
-                  correctamente
+                <p className='text-gray-500 '>
+                  Asegurate de haber leido correctamente las instrucciones sobre
+                  los archivos csv de la tabla:{' '}
+                  <a
+                    href='#'
+                    className='text-indigo-500 hover:underline hover:cursor-pointer'
+                  >
+                    desembolsos
+                  </a>
                 </p>
               </div>
-              <div className='p-10 border border-t border-gray-200 rounded-md min-w-max max-w-max'>
-                <div className='flex flex-inline space-x-4 '>
-                  <div className='flex flex-col'>
-                    <label
-                      htmlFor='fechaInicial'
-                      className='text-md font-semibold text-gray-700 mb-2'
-                    >
-                      Fecha Inicial
-                    </label>
-                    <input
-                      type='date'
-                      className='inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500'
-                      id='fechaInicial'
-                      required
-                      value={value.fechaInicial}
-                      onChange={handleInputChange}
-                      name='fechaInicial'
-                    />
-                  </div>{' '}
-                  <div className='flex flex-col'>
-                    <label
-                      htmlFor='fechaFinal'
-                      className='text-md font-semibold text-gray-700 mb-2'
-                    >
-                      Fecha Final
-                    </label>
-                    <input
-                      type='date'
-                      className='inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500'
-                      id='fechaFinal'
-                      required
-                      value={value.fechaFinal}
-                      onChange={handleInputChange}
-                      name='fechaFinal'
-                    />
-                  </div>
-                </div>
-                <button
-                  onClick={saveValue}
-                  className='p-2 bg-indigo-600 rounded text-white px-4 max-w-max mt-4 inline-flex items-center'
-                >
-                  <LoadingIndicator />
-                  Enviar
-                </button>
-                <p>{message}</p>
+              <UploadCatHistorialMora />
+            </div>
+            {/** Subir Archivos de Desembolsos Element */}
+            <div className='flex space-x-10'>
+              <div className='max-w-xs'>
+                <h3 className='font-semibold text-lg'>Subir Lista Creditos</h3>
+                <p className='text-gray-500 '>
+                  Asegurate de haber leido correctamente las instrucciones sobre
+                  los archivos csv de la tabla:{' '}
+                  <a
+                    href='#'
+                    className='text-indigo-500 hover:underline hover:cursor-pointer'
+                  >
+                    desembolsos
+                  </a>
+                </p>
+              </div>
+              <UploadListaCreditos />
+            </div>
+            {/** Subir Archivos de Desembolsos Element */}
+            <div className='flex space-x-10'>
+              <div className='max-w-xs'>
+                <h3 className='font-semibold text-lg'>
+                  Subir Resultado Evaluacion
+                </h3>
+                <p className='text-gray-500 '>
+                  Asegurate de haber leido correctamente las instrucciones sobre
+                  los archivos csv de la tabla:{' '}
+                  <a
+                    href='#'
+                    className='text-indigo-500 hover:underline hover:cursor-pointer'
+                  >
+                    desembolsos
+                  </a>
+                </p>
+              </div>
+              <div>
+                <UploadResultadoEvaluacion />
               </div>
             </div>
           </div>

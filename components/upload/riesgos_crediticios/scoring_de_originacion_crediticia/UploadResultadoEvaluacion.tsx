@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import FileUploadService from '../../pages/api/analisis_de_cosechas/upload/UploadCarteraService'
+import FileUploadService from '../../../../pages/api/riesgos_crediticios/scoring_de_originacion_crediticia/upload/uploadResultadoEvaluacion'
 
 const UploadFiles = () => {
   const [selectedFiles, setSelectedFiles] = useState<any>(undefined)
@@ -79,10 +79,7 @@ const UploadFiles = () => {
             </button>
           </div>
         </div>
-        <div
-          className='text-md text-gray-400 max-w-max'
-          role='alert'
-        >
+        <div className='text-md text-gray-400 max-w-max' role='alert'>
           {message}
         </div>
       </body>

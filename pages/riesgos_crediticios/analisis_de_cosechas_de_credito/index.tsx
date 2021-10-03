@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import Sidebar from '../../../components/Layout/Sidebar'
-import UploadFiles from '../../../components/upload/UploadCartera'
-import UploadDesembolsos from '../../../components/upload/UploadDesembolsos'
+import UploadFiles from '../../../components/upload/riesgos_crediticios/analisis_de_cosechas/UploadCartera'
+import UploadDesembolsos from '../../../components/upload/riesgos_crediticios/analisis_de_cosechas/UploadDesembolsos'
 import AnalisisDeCosechas from '../../api/analisis_de_cosechas/analisis_de_cosechas'
 import { usePromiseTracker } from 'react-promise-tracker'
 import Dropdown from '../../../components/UI/Dropdown'
 import { withAuthenticationRequired } from '@auth0/auth0-react'
 import { trackPromise } from 'react-promise-tracker'
 import Loading from '../../../components/auth/Loading'
-import UploadCartera from '../../../components/upload/UploadCartera'
+import UploadCartera from '../../../components/upload/riesgos_crediticios/analisis_de_cosechas/UploadCartera'
 
 const LoadingIndicator: any = (props: any) => {
   const { promiseInProgress } = usePromiseTracker()
@@ -77,11 +77,8 @@ function AnalisisDeCosechasDeCredito () {
   const dropdownData = [
     {
       name: 'Analisis Continuo',
-      link: '/riesgos_crediticios/analisis_continuo'
-    },
-    {
-      name: 'Analisis x',
-      link: '/riesgos_crediticios/x'
+      link:
+        '/riesgos_crediticios/analisis_de_cosechas_de_credito/analisis_continuo'
     }
   ]
 
@@ -89,7 +86,7 @@ function AnalisisDeCosechasDeCredito () {
     <div className='flex min-h-screen m-auto w-full'>
       {<Sidebar />}
       <main className='m-10 w-full flex justify-center '>
-        <div className='flex flex-col justify-center px-10 border border-t border-gray-200 rounded-md w-full max-w-5xl'>
+        <div className='flex flex-col justify-center p-10 border border-t border-gray-200 rounded-md w-full max-w-5xl'>
           {' '}
           <h2 className='font-bold text-2xl mb-5'>
             Análisis de cosechas de credito
