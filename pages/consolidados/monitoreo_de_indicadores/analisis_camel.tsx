@@ -12,13 +12,8 @@ import GaugeChart from 'react-gauge-chart'
 function AnalisisCamel () {
   const dropdownData = [
     {
-      name: 'Subir Catálogos',
-      link: '/riesgos_crediticios/scoring_de_originacion_crediticia/'
-    },
-    {
-      name: 'Analisis Camel',
-      link:
-        '/riesgos_crediticios/scoring_de_originacion_crediticia/analisis_camel'
+      name: 'Monitoreo de Indicadores',
+      link: '/consolidados/monitoreo_de_indicadores/'
     }
   ]
 
