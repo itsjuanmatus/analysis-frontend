@@ -107,7 +107,15 @@ function MatrizDeTransicionCrediticia ({ tableData }: any) {
           <div className='max-w-sm mb-10'>
             <Dropdown dropdownData={dropdownData} />
           </div>
-          <div className='grid w-full gap-y-10'></div>
+          <div className='grid w-full gap-y-10'>
+            <iframe
+              src='https://onedrive.live.com/embed?cid=C81B3CCED330E0F9&resid=C81B3CCED330E0F9%212575&authkey=AG0VH-J3HEl3P3E&em=2'
+              width='900'
+              height='500'
+              frameBorder='0'
+              scrolling='no'
+            ></iframe>
+          </div>
         </div>
       </main>
     </div>

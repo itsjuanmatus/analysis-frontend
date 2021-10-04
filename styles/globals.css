@@ -13,3 +13,7 @@
 input[type="file"] {
   display: none;
 }
+
+.sidebar {
+  height:100vh;
+}

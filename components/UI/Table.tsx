@@ -35,7 +35,7 @@ function GlobalFilter ({
     <label className='flex gap-x-2 items-baseline'>
       <span className='text-gray-700'>Buscar: </span>
       <input
-        type="search" 
+        type='search'
         className='mt-1 block w-full max-w-md mb-5 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'
         value={value || ''}
         onChange={e => {
@@ -186,11 +186,15 @@ function Table ({ columns, data }: any) {
               >
                 <thead className='bg-gray-50'>
                   {headerGroups.map((headerGroup: any) => (
-                    <tr {...headerGroup.getHeaderGroupProps()}>
+                    <tr
+                      {...headerGroup.getHeaderGroupProps()}
+                      key={headerGroup}
+                    >
                       {headerGroup.headers.map((column: any) => (
                         // Add the sorting props to control sorting. For this example
                         // we can add them into the header props
                         <th
+                          key={column.column}
                           scope='col'
                           className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'
                           {...column.getHeaderProps(
@@ -219,10 +223,11 @@ function Table ({ columns, data }: any) {
                     // new
                     prepareRow(row)
                     return (
-                      <tr {...row.getRowProps()}>
+                      <tr {...row.getRowProps()} key={row.getKey}>
                         {row.cells.map((cell: any) => {
                           return (
                             <td
+                              key={cell.getKey}
                               {...cell.getCellProps()}
                               className='px-6 py-4 whitespace-nowrap'
                             >

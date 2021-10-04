@@ -270,6 +270,14 @@ function AnalisisContinuo ({ tableData }: any) {
           <div className='max-w-5xl mt-10'>
             <Line data={data} options={options} />
           </div>
+          <iframe
+            className='mt-32'
+            width='100%'
+            height='707'
+            frameBorder='0'
+            scrolling='no'
+            src='https://onedrive.live.com/embed?resid=C81B3CCED330E0F9%212573&authkey=%21AOdQzogpStacgZw&em=2&wdAllowInteractivity=False&Item=reporte%201%20analisis%20continuo&wdDownloadButton=True&wdInConfigurator=True'
+          ></iframe>
         </div>
       </main>
     </div>

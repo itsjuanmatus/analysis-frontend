@@ -30,7 +30,7 @@ export default function Dropdown ({ dropdownData, name = 'Opciones' }: any) {
         <Menu.Items className='origin-top-right absolute left-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none'>
           <div className='py-1'>
             {dropdownData.map((e: any) => (
-              <Menu.Item>
+              <Menu.Item key={e.link}>
                 {({ active }) => (
                   <a
                     key={e.name}

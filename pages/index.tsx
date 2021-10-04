@@ -27,7 +27,7 @@ function Home ({ tableData }: any) {
         <main className='m-10 w-full'>
           <nav></nav>
           <div className='flex flex-col justify-center'>
-            <h2 className='font-bold text-2xl mb-10'>Análisis continuo</h2>
+            <h2 className='font-bold text-2xl mb-10'>Bienvenido a SAER</h2>
             <div>
               <div className='header'>
                 <div className='links'></div>
@@ -50,7 +50,7 @@ function Home ({ tableData }: any) {
               onClick={loginWithRedirect}
               className='mt-2 max-w-max inline-flex 
               items-center px-4 py-2 border border-transparent 
-              text-base font-semibold leading-6 rounded-md text-white bg-blue-600'
+              text-base font-semibold leading-6 rounded-md text-white bg-indigo-600'
             >
               Log in
             </button>
