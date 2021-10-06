@@ -1,20 +1,20 @@
 import React, { useState, useEffect } from 'react'
-import FileUploadService from '../../../../pages/api/analisis_de_cosechas/upload/UploadCarteraService'
 
-const UploadFiles = () => {
+const Uploader = ({ uploadService }: any) => {
   const [selectedFiles, setSelectedFiles] = useState<any>(undefined)
   const [currentFile, setCurrentFile] = useState(undefined)
   const [progress, setProgress] = useState(0)
   const [message, setMessage] = useState('')
 
-  const upload = () => {
+  const upload = (props: any) => {
     let currentFile = selectedFiles[0]
     setProgress(0)
     setCurrentFile(currentFile)
 
-    FileUploadService.upload(currentFile, (event: any) => {
-      setProgress(Math.round((100 * event.loaded) / event.total))
-    })
+    uploadService
+      .upload(currentFile, (event: any) => {
+        setProgress(Math.round((100 * event.loaded) / event.total))
+      })
       .then((response: any) => {
         return setMessage(response.data.message)
       })
@@ -87,4 +87,4 @@ const UploadFiles = () => {
   )
 }
 
-export default UploadFiles
+export default Uploader

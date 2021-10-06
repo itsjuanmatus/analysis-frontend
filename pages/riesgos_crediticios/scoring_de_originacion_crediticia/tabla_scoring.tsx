@@ -7,6 +7,7 @@ import Loading from '../../../components/auth/Loading'
 import Dropdown from '../../../components/UI/Dropdown'
 import SacCalculoScore from '../../api/riesgos_crediticios/scoring_de_originacion_crediticia/stored_procedures/sac_calculo_score'
 import Table, { StatusPill } from '../../../components/UI/Table'
+import dropdownData from '../../../components/data/dropdowns/riesgos_crediticios/scoring'
 
 function TablaScoring ({ tableData }: any) {
   const router = useRouter()
@@ -20,22 +21,7 @@ function TablaScoring ({ tableData }: any) {
     router.replace(router.asPath)
   }
 
-  const dropdownData = [
-    {
-      name: 'Subir Catálogos',
-      link: '/riesgos_crediticios/scoring_de_originacion_crediticia/'
-    },
-    {
-      name: 'Tabla Scoring',
-      link:
-        '/riesgos_crediticios/scoring_de_originacion_crediticia/tabla_scoring'
-    },
-    ,
-    {
-      name: 'Analisis Camel',
-      link: '#'
-    }
-  ]
+  
 
   const [message, setMessage] = React.useState('')
 

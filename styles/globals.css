@@ -15,5 +15,16 @@ input[type="file"] {
 }
 
 .sidebar {
-  height:100vh;
+  height: 100vh;
+}
+
+.floating-background {
+  @apply grid items-start justify-start p-10 border border-t border-gray-200 rounded-md w-full max-w-5xl;
+}
+
+.main-title {
+  @apply font-bold text-2xl mb-2;
+}
+.subtitle {
+  @apply text-gray-500 mb-5;
 }
