@@ -1,4 +1,5 @@
 import React from 'react'
+import Uploader from '../Uploading/Uploader'
 
 export default function Upload (props: any) {
   return (
@@ -15,7 +16,7 @@ export default function Upload (props: any) {
           </a>
         </p>
       </div>
-      {props.uploadComponent}
+      <Uploader uploadService={props.uploadService} />
     </div>
   )
 }

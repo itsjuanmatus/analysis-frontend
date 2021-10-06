@@ -1,19 +1,17 @@
 import Sidebar from '../../../components/Layout/Sidebar'
 import { withAuthenticationRequired } from '@auth0/auth0-react'
 import Loading from '../../../components/auth/Loading'
-import UploadCatEstadoOperacion from '../../../components/upload/riesgos_crediticios/scoring_de_originacion_crediticia/UploadCatEstadoOperacion'
-import UploadCatFormaRecuperacion from '../../../components/upload/riesgos_crediticios/scoring_de_originacion_crediticia/UploadCatFormaRecuperacion'
-import UploadCatHistorialMora from '../../../components/upload/riesgos_crediticios/scoring_de_originacion_crediticia/UploadCatHistorialMora'
-import UploadListaCreditos from '../../../components/upload/riesgos_crediticios/scoring_de_originacion_crediticia/UploadListaCreditos'
-import UploadResultadoEvaluacion from '../../../components/upload/riesgos_crediticios/scoring_de_originacion_crediticia/UploadResultadoEvaluacion'
 import FloatingBackground from '../../../components/UI/FloatingBackground'
 import dropdownData from '../../../components/data/dropdowns/riesgos_crediticios/scoring'
 
-
 import Upload from '../../../components/UI/Sections/Upload'
+import uploadCatEstadoOperacion from '../../api/riesgos_crediticios/scoring_de_originacion_crediticia/upload/uploadCatEstadoOperacion'
+import uploadCatFormaRecuperacion from '../../api/riesgos_crediticios/scoring_de_originacion_crediticia/upload/uploadCatFormaRecuperacion'
+import uploadCatHistorialMora from '../../api/riesgos_crediticios/scoring_de_originacion_crediticia/upload/uploadCatHistorialMora'
+import uploadListaCreditos from '../../api/riesgos_crediticios/scoring_de_originacion_crediticia/upload/uploadListaCreditos'
+import uploadResultadoEvaluacion from '../../api/riesgos_crediticios/scoring_de_originacion_crediticia/upload/uploadResultadoEvaluacion'
 
 function ScoringDeOriginacionCrediticia () {
-
   return (
     <FloatingBackground
       sidebar={<Sidebar />}
@@ -28,7 +26,7 @@ function ScoringDeOriginacionCrediticia () {
           las instrucciones sobre los archivos csv de la tabla:'
           linkArea='Catalogo Estado Operacion'
           link='#'
-          uploadComponent={<UploadCatEstadoOperacion />}
+          uploadService={uploadCatEstadoOperacion}
         />
         <Upload
           title='Subir Catalogo Forma Recuperacion'
@@ -37,7 +35,7 @@ function ScoringDeOriginacionCrediticia () {
           archivos csv de la tabla:'
           linkArea='desembolsos'
           link='#'
-          uploadComponent={<UploadCatFormaRecuperacion />}
+          uploadService={uploadCatFormaRecuperacion}
         />
         <Upload
           title='Subir Catalogo Historial Mora'
@@ -47,7 +45,7 @@ function ScoringDeOriginacionCrediticia () {
           archivos csv de la tabla:'
           linkArea='historial mora'
           link='#'
-          uploadComponent={<UploadCatHistorialMora />}
+          uploadService={uploadCatHistorialMora}
         />
         <Upload
           title='Subir Lista Creditos'
@@ -57,7 +55,7 @@ function ScoringDeOriginacionCrediticia () {
           archivos csv de la tabla:'
           linkArea='lista creditos'
           link='#'
-          uploadComponent={<UploadListaCreditos />}
+          uploadService={uploadListaCreditos}
         />
         <Upload
           title='Subir Resultado Evaluacion'
@@ -67,7 +65,7 @@ function ScoringDeOriginacionCrediticia () {
           archivos csv de la tabla:'
           linkArea='resultado evaluacion'
           link='#'
-          uploadComponent={<UploadResultadoEvaluacion />}
+          uploadService={uploadResultadoEvaluacion}
         />
       </div>
     </FloatingBackground>

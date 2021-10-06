@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import Sidebar from '../../../components/Layout/Sidebar'
 import AnalisisContinuoService from '../../api/analisis_de_cosechas/analisis_continuo'
 import { Line } from 'react-chartjs-2'
@@ -8,6 +8,8 @@ import { withAuthenticationRequired } from '@auth0/auth0-react'
 import { trackPromise, usePromiseTracker } from 'react-promise-tracker'
 import Loading from '../../../components/auth/Loading'
 import Dropdown from '../../../components/UI/Dropdown'
+import dropdownData from '../../../components/data/dropdowns/riesgos_crediticios/analisis_de_cosechas_de_credito'
+import FloatingBackground from '../../../components/UI/FloatingBackground'
 
 const LoadingIndicator: any = (props: any) => {
   const { promiseInProgress } = usePromiseTracker()
@@ -174,113 +176,80 @@ function AnalisisContinuo ({ tableData }: any) {
     }
   }
 
-  const dropdownData = [
-    {
-      name: 'Subir archivos',
-      link: '/riesgos_crediticios/analisis_de_cosechas_de_credito/'
-    },
-    {
-      name: 'Análisis Continuo',
-      link:
-        '/riesgos_crediticios/analisis_de_cosechas_de_credito/analisis_continuo'
-    },
-
-    {
-      name: 'Análisis Puntual',
-      link:
-        '/riesgos_crediticios/analisis_de_cosechas_de_credito/analisis_puntual'
-    },
-    {
-      name: 'Analisis Continuo Segmentado',
-      link:
-        '/riesgos_crediticios/analisis_de_cosechas_de_credito/analisis_continuo_segmentado'
-    },
-    {
-      name: 'Analisis Puntual Segmentado',
-      link:
-        '/riesgos_crediticios/analisis_de_cosechas_de_credito/analisis_puntual_segmentado'
-    }
-  ]
-
   return (
-    <div className='flex min-h-screen m-auto w-full'>
-      {<Sidebar />}
-      <main className='m-10 w-full'>
-        <div className='flex flex-col justify-center  p-10 border border-t border-gray-200 rounded-md w-full'>
-          {' '}
-          <h2 className='font-bold text-2xl mb-5'>Análisis Continuo</h2>
-          <div className='max-w-sm mb-10'>
-            <Dropdown name='Gráficos' dropdownData={dropdownData} />
-          </div>
-          <div className='flex space-x-10 mb-10'>
-            <div className='max-w-xs'>
-              <h3 className='font-semibold text-lg'>Generar gráfico</h3>
-              <p className='text-gray-500'>
-                Asegurate de haber subido los archivos de cartera y desembolso
-                correctamente
-              </p>
-            </div>
-            <div className='p-10 border border-t border-gray-200 rounded-md min-w-max max-w-max'>
-              <div className='flex flex-inline space-x-4 '>
-                <div className='flex flex-col'>
-                  <label
-                    htmlFor='fechaInicial'
-                    className='text-md font-semibold text-gray-700 mb-2'
-                  >
-                    Fecha Inicial
-                  </label>
-                  <input
-                    type='date'
-                    className='inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500'
-                    id='fechaInicial'
-                    required
-                    value={value.fechaInicial}
-                    onChange={handleInputChange}
-                    name='fechaInicial'
-                  />
-                </div>{' '}
-                <div className='flex flex-col'>
-                  <label
-                    htmlFor='fechaFinal'
-                    className='text-md font-semibold text-gray-700 mb-2'
-                  >
-                    Fecha Final
-                  </label>
-                  <input
-                    type='date'
-                    className='inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500'
-                    id='fechaFinal'
-                    required
-                    value={value.fechaFinal}
-                    onChange={handleInputChange}
-                    name='fechaFinal'
-                  />
-                </div>
-              </div>
-              <button
-                onClick={saveValue}
-                className='p-2 bg-indigo-600 rounded text-white px-4 max-w-max mt-4 inline-flex items-center'
-              >
-                <LoadingIndicator />
-                Enviar
-              </button>
-              <p>{message}</p>
-            </div>
-          </div>
-          <div className='max-w-5xl mt-10'>
-            <Line data={data} options={options} />
-          </div>
-          <iframe
-            className='mt-32'
-            width='100%'
-            height='707'
-            frameBorder='0'
-            scrolling='no'
-            src='https://onedrive.live.com/embed?resid=C81B3CCED330E0F9%212573&authkey=%21AOdQzogpStacgZw&em=2&wdAllowInteractivity=False&Item=reporte%201%20analisis%20continuo&wdDownloadButton=True&wdInConfigurator=True'
-          ></iframe>
+    <FloatingBackground
+      sidebar={<Sidebar />}
+      dropdownData={dropdownData}
+      title='Análisis Continuo'
+      subtitle='Define una fecha inicial y final para generar analisis'
+    >
+      <div className='flex space-x-10 mb-10'>
+        <div className='max-w-xs'>
+          <h3 className='font-semibold text-lg'>Generar gráfico</h3>
+          <p className='text-gray-500'>
+            Asegurate de haber subido los archivos de cartera y desembolso
+            correctamente
+          </p>
         </div>
-      </main>
-    </div>
+        <div className='p-10 border border-t border-gray-200 rounded-md min-w-max max-w-max'>
+          <div className='flex flex-inline space-x-4 '>
+            <div className='flex flex-col'>
+              <label
+                htmlFor='fechaInicial'
+                className='text-md font-semibold text-gray-700 mb-2'
+              >
+                Fecha Inicial
+              </label>
+              <input
+                type='date'
+                className='inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500'
+                id='fechaInicial'
+                required
+                value={value.fechaInicial}
+                onChange={handleInputChange}
+                name='fechaInicial'
+              />
+            </div>{' '}
+            <div className='flex flex-col'>
+              <label
+                htmlFor='fechaFinal'
+                className='text-md font-semibold text-gray-700 mb-2'
+              >
+                Fecha Final
+              </label>
+              <input
+                type='date'
+                className='inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500'
+                id='fechaFinal'
+                required
+                value={value.fechaFinal}
+                onChange={handleInputChange}
+                name='fechaFinal'
+              />
+            </div>
+          </div>
+          <button
+            onClick={saveValue}
+            className='p-2 bg-indigo-600 rounded text-white px-4 max-w-max mt-4 inline-flex items-center'
+          >
+            <LoadingIndicator />
+            Enviar
+          </button>
+          <p>{message}</p>
+        </div>
+      </div>
+      <div className='max-w-5xl mt-10'>
+        <Line data={data} options={options} />
+      </div>
+      <iframe
+        className='mt-32'
+        width='100%'
+        height='707'
+        frameBorder='0'
+        scrolling='no'
+        src='https://onedrive.live.com/embed?resid=C81B3CCED330E0F9%212573&authkey=%21AOdQzogpStacgZw&em=2&wdAllowInteractivity=False&Item=reporte%201%20analisis%20continuo&wdDownloadButton=True&wdInConfigurator=True'
+      ></iframe>
+    </FloatingBackground>
   )
 }
 
