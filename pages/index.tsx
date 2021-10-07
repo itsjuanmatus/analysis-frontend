@@ -1,6 +1,7 @@
 import Sidebar from '../components/Layout/Sidebar'
 import { useAuth0 } from '@auth0/auth0-react'
 import Dropdown from '../components/UI/Dropdown'
+import FloatingBackground from '../components/UI/FloatingBackground'
 
 function Home ({ tableData }: any) {
   const {
@@ -22,20 +23,13 @@ function Home ({ tableData }: any) {
 
   if (isAuthenticated) {
     return (
-      <div className='flex min-h-screen'>
-        {<Sidebar />}
-        <main className='m-10 w-full'>
-          <nav></nav>
-          <div className='flex flex-col justify-center'>
-            <h2 className='font-bold text-2xl mb-10'>Bienvenido a SAER</h2>
-            <div>
-              <div className='header'>
-                <div className='links'></div>
-              </div>
-            </div>
-          </div>
-        </main>
-      </div>
+      <FloatingBackground
+        sidebar={<Sidebar />}
+        title='Bienvenido a SAER'
+        subtitle=''
+      >
+        <div></div>
+      </FloatingBackground>
     )
   } else {
     return (

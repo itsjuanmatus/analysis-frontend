@@ -4,7 +4,7 @@ import Uploader from '../Uploading/Uploader'
 
 export default function Dates (props: any) {
   return (
-    <div className='flex space-x-10'>
+    <div className='grid gap-y-10 md:grid-cols-2 md:gap-x-10'>
       <div className='max-w-xs'>
         <h3 className='font-semibold text-lg'>{props.title}</h3>
         <p className='text-gray-500'>

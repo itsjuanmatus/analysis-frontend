@@ -8,8 +8,8 @@ interface Props {
 export default function PageHeading ({ title, subtitle }: Props) {
   return (
     <>
-      <h2 className='main-title'>Scoring de originación crediticia</h2>
-      <p className='subtitle'>Subir archivos para generar analisis</p>
+      <h2 className='main-title'>{title}</h2>
+      <p className='subtitle'>{subtitle}</p>
     </>
   )
 }

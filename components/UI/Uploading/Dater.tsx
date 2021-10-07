@@ -41,7 +41,7 @@ export default function Dater ({
 }: any) {
   return (
     <div className='p-10 border border-t border-gray-200 rounded-md min-w-max max-w-max'>
-      <div className='flex flex-inline space-x-4 '>
+      <div className='grid lg:grid-cols-2 lg:gap-x-4 '>
         <div className='flex flex-col'>
           <label
             htmlFor='fechaInicial'

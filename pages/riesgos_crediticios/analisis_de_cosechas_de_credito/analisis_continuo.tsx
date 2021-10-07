@@ -12,8 +12,6 @@ import FloatingBackground from '../../../components/UI/FloatingBackground'
 import Dates from '../../../components/UI/Sections/Dates'
 import LoadingIndicator from '../../../components/UI/Uploading/LoadingIndicator'
 
-
-
 function AnalisisContinuo ({ tableData }: any) {
   const router = useRouter()
 
@@ -148,7 +146,9 @@ function AnalisisContinuo ({ tableData }: any) {
           }
         }
       }
-    }
+    },
+    responsive: true,
+    maintainAspectRatio: false
   }
 
   return (
@@ -170,7 +170,7 @@ function AnalisisContinuo ({ tableData }: any) {
         handleInputChange={handleInputChange}
       />
 
-      <div className='max-w-5xl mt-10'>
+      <div className='w-full min-w-96 mt-10 h-72 overflow-auto md:h-96'>
         <Line data={data} options={options} />
       </div>
       <iframe
