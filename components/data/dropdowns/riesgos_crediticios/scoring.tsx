@@ -6,6 +6,11 @@ const dropdownData = [
   {
     name: 'Tabla Scoring',
     link: '/riesgos_crediticios/scoring_de_originacion_crediticia/tabla_scoring'
+  },
+  {
+    name: 'Analisis Historial Crediticio',
+    link:
+      '/riesgos_crediticios/scoring_de_originacion_crediticia/analisis_historial_crediticio'
   }
 ]
 
