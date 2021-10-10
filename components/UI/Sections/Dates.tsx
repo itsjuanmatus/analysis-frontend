@@ -1,6 +1,5 @@
 import React from 'react'
 import Dater from '../Uploading/Dater'
-import Uploader from '../Uploading/Uploader'
 
 export default function Dates (props: any) {
   return (

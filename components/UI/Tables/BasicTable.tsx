@@ -19,33 +19,7 @@ import {
   ChevronDoubleRightIcon
 } from '@heroicons/react/solid'
 
-function GlobalFilter ({
-  preGlobalFilteredRows,
-  globalFilter,
-  setGlobalFilter
-}: any) {
-  const count = preGlobalFilteredRows.length
-  const [value, setValue] = React.useState(globalFilter)
-  const onChange = useAsyncDebounce(value => {
-    setGlobalFilter(value || undefined)
-  }, 200)
 
-  return (
-    <label className='flex gap-x-2 items-baseline'>
-      <span className='text-gray-700'>Buscar: </span>
-      <input
-        type='search'
-        className='mt-1 block w-full max-w-md mb-5 rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50'
-        value={value || ''}
-        onChange={e => {
-          setValue(e.target.value)
-          onChange(e.target.value)
-        }}
-        placeholder={`${count} registros...`}
-      />
-    </label>
-  )
-}
 
 export function StatusPill ({ value }: any) {
   const score = value
@@ -110,13 +84,7 @@ function BasicTable ({ columns, data }: any) {
   // Render the UI for your table
   return (
     <>
-      <div className='flex w-full justify-between'>
-        <GlobalFilter
-          preGlobalFilteredRows={preGlobalFilteredRows}
-          globalFilter={state.globalFilter}
-          setGlobalFilter={setGlobalFilter}
-        />
-      </div>
+      <div className='flex w-full justify-between'></div>
       <div className='mt-2 flex flex-col'>
         <div className='-my-2 overflow-x-auto -mx-4 sm:-mx-6 lg:-mx-8'>
           <div className='py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8'>
