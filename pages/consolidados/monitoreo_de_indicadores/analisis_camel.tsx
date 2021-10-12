@@ -22,7 +22,7 @@ function AnalisisCamel () {
       subtitle='Analisis Camel'
     >
       <iframe
-        src='https://onedrive.live.com/embed?cid=C81B3CCED330E0F9&resid=C81B3CCED330E0F9%212571&authkey=APvMG_yKTTcSxSU&em=2'
+        src='https://onedrive.live.com/embed?cid=C81B3CCED330E0F9&resid=C81B3CCED330E0F9%212578&authkey=AG8elhDy3A-D_BU&em=2'
         width='900'
         height='700'
         frameBorder='0'

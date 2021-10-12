@@ -11,6 +11,7 @@ import RiesgoCrediticio from '../../api/riesgos_crediticios/scoring_de_originaci
 import LoadingIndicator from '../../../components/UI/Uploading/LoadingIndicator'
 import GaugeChart from 'react-gauge-chart'
 import BasicTable, {
+  BoldHeading,
   StatusPill
 } from '../../../components/UI/Tables/BasicTable'
 
@@ -72,12 +73,40 @@ function ReporteRiesgoCrediticio () {
   for (let i = 0; i < keys.length; i++) {
     emptyArray[i] = { ...emptyArray[i], Valor: values[i] }
   }
+  let ultimateArray = []
+
+  if (emptyArray.length > 3) {
+    ultimateArray[0] = emptyArray[0]
+    ultimateArray[1] = { Descripción: 'INFORMACION HISTORICA', Valor: '' }
+    ultimateArray[2] = emptyArray[13]
+    ultimateArray[3] = emptyArray[7]
+    ultimateArray[4] = emptyArray[11]
+    ultimateArray[5] = emptyArray[8]
+    ultimateArray[6] = emptyArray[12]
+    ultimateArray[7] = emptyArray[2]
+    ultimateArray[8] = emptyArray[6]
+    ultimateArray[9] = emptyArray[5]
+    ultimateArray[10] = emptyArray[9]
+    ultimateArray[11] = emptyArray[4]
+    ultimateArray[12] = {
+      Descripción: 'EXPOSICION POR RIESGO CREDITICIO',
+      Valor: ''
+    }
+    ultimateArray[13] = emptyArray[10]
+    ultimateArray[14] = emptyArray[1]
+    ultimateArray[15] = emptyArray[14]
+    ultimateArray[16] = emptyArray[15]
+    ultimateArray[17] = emptyArray[3]
+
+    emptyArray = ultimateArray
+  }
 
   const columns = React.useMemo(
     () => [
       {
         Header: 'Descripción',
-        accessor: 'Descripción'
+        accessor: 'Descripción',
+        Cell: BoldHeading,
       },
       {
         Header: 'Valor',
@@ -86,6 +115,7 @@ function ReporteRiesgoCrediticio () {
     ],
     []
   )
+
 
   return (
     <FloatingBackground
@@ -157,7 +187,7 @@ function ReporteRiesgoCrediticio () {
               nrOfLevels={10}
               colors={['#DC2626', '#F97316', '#A3E635']}
               arcWidth={0.3}
-              percent={values[10]}
+              percent={values[10] / 10}
               textColor='#00000'
               hideText={true}
               animateDuration={2000}

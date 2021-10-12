@@ -88,10 +88,11 @@ function AnalisisHistorialCrediticio ({ tableData }: any) {
     <FloatingBackground
       sidebar={<Sidebar />}
       dropdownData={dropdownData}
-      title='Analisis Historial Crediticio'
+      title='Estimación de pérdidas de cartera'
       subtitle='Tabla historial crediticio'
     >
       <div className='w-full mt-10 mb-20'>
+        <h3 className='text-xl font-semibold'>Millones de dólares</h3>
         <BasicTable columns={columns} data={fields} />
       </div>
     </FloatingBackground>

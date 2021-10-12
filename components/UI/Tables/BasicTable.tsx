@@ -19,8 +19,6 @@ import {
   ChevronDoubleRightIcon
 } from '@heroicons/react/solid'
 
-
-
 export function StatusPill ({ value }: any) {
   const score = value
 
@@ -38,6 +36,21 @@ export function StatusPill ({ value }: any) {
   )
 }
 
+export function BoldHeading ({ value }: any) {
+  const heading = value
+
+  return (
+    <span
+      className={classNames(
+        heading === 'INFORMACION HISTORICA' ? 'font-bold' : null,
+        heading === 'EXPOSICION POR RIESGO CREDITICIO' ? 'font-bold' : null
+      )}
+    >
+      {heading}
+    </span>
+  )
+}
+
 function BasicTable ({ columns, data }: any) {
   // Use the state and functions returned from useTable to build your UI
   const {
@@ -46,7 +59,7 @@ function BasicTable ({ columns, data }: any) {
     headerGroups,
     prepareRow,
     selectedFlatRows,
-    state: { selectedRowIds },
+    state: { pageSize },
     page,
     canPreviousPage,
     canNextPage,
@@ -72,7 +85,9 @@ function BasicTable ({ columns, data }: any) {
         }
 
         return newState
-      }
+      },
+      // @ts-ignore
+      initialState: { pageSize: 25 }
     },
     useFilters,
     useGlobalFilter,
@@ -129,7 +144,6 @@ function BasicTable ({ columns, data }: any) {
                   className='bg-white divide-y divide-gray-200'
                 >
                   {page.map((row: any, i: any) => {
-                    // new
                     prepareRow(row)
                     return (
                       <tr {...row.getRowProps()} key={row.getKey}>
@@ -182,8 +196,8 @@ function BasicTable ({ columns, data }: any) {
               Página <span className='font-medium'>{state.pageIndex + 1}</span>{' '}
               de <span className='font-medium'>{pageOptions.length}</span>
             </span>
-            <select
-              value={state.pageSize}
+            {/* <select
+              value={pageSize}
               onChange={e => {
                 setPageSize(Number(e.target.value))
               }}
@@ -194,7 +208,7 @@ function BasicTable ({ columns, data }: any) {
                   Mostrar {pageSize}
                 </option>
               ))}
-            </select>
+            </select> */}
           </div>
           <div>
             <nav
